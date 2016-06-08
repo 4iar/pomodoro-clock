@@ -8,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class PomodoroClockAppComponent {
   title = 'pomodoro-clock works!';
+
+  durationMinutes = {
+    'break': 5,
+    'work': 25,
+  }
 }

@@ -15,8 +15,13 @@ describe('App: PomodoroClock', () => {
     expect(app).toBeTruthy();
   }));
 
-  it('should have as title \'pomodoro-clock works!\'',
+  it('should initialise durationMinutes.break to 5',
       inject([PomodoroClockAppComponent], (app: PomodoroClockAppComponent) => {
-    expect(app.title).toEqual('pomodoro-clock works!');
+        expect(app.durationMinutes['break']).toEqual(5);
+  }));
+
+  it('should initialise durationMinutes.work to 25',
+      inject([PomodoroClockAppComponent], (app: PomodoroClockAppComponent) => {
+        expect(app.durationMinutes['work']).toEqual(25);
   }));
 });
