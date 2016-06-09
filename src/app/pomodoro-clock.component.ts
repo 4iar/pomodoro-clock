@@ -13,15 +13,14 @@ export class PomodoroClockAppComponent {
     'break': 5,
     'work': 25
   }
-  
-  decrementDurationByOneMinute (timerType) {
+  decrementStartingDurationByOneMinute (timerType) {
     if (this.startingDurationMinutes[timerType] == 1) {
       return
     }
     this.startingDurationMinutes[timerType] -= 1;
   };
 
-  incrementDurationByOneMinute (timerType) {
+  incrementStartingDurationByOneMinute (timerType) {
     this.startingDurationMinutes[timerType] += 1;
   };
 }

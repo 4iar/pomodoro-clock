@@ -25,21 +25,21 @@ describe('App: PomodoroClock', () => {
       expect(app.startingDurationMinutes['work']).toEqual(25);
     }));
 
-  describe('Function: decrementDurationByOneMinute', () => {
+  describe('Function: decrementStartingDurationByOneMinute', () => {
     it('should decrement the duration of the relevant timer duration (work/break) by one minute',
       inject([PomodoroClockAppComponent], (app: PomodoroClockAppComponent) => {
         app.startingDurationMinutes = {
           'break': 5,
           'work': 25
         }
-        app.decrementDurationByOneMinute('break');
+        app.decrementStartingDurationByOneMinute('break');
         expect(app.startingDurationMinutes['break']).toEqual(4);
-        app.decrementDurationByOneMinute('break');
+        app.decrementStartingDurationByOneMinute('break');
         expect(app.startingDurationMinutes['break']).toEqual(3);
 
-        app.decrementDurationByOneMinute('work');
+        app.decrementStartingDurationByOneMinute('work');
         expect(app.startingDurationMinutes['work']).toEqual(24);
-        app.decrementDurationByOneMinute('work');
+        app.decrementStartingDurationByOneMinute('work');
         expect(app.startingDurationMinutes['work']).toEqual(23);
       }));
     it('should not allow the duration of either timer (break/work) to be less than 0',
@@ -48,20 +48,20 @@ describe('App: PomodoroClock', () => {
           'break': 5,
           'work': 2
         }
-        app.decrementDurationByOneMinute('break');
-        app.decrementDurationByOneMinute('break');
-        app.decrementDurationByOneMinute('break');
-        app.decrementDurationByOneMinute('break');
-        app.decrementDurationByOneMinute('break');
-        app.decrementDurationByOneMinute('break');
+        app.decrementStartingDurationByOneMinute('break');
+        app.decrementStartingDurationByOneMinute('break');
+        app.decrementStartingDurationByOneMinute('break');
+        app.decrementStartingDurationByOneMinute('break');
+        app.decrementStartingDurationByOneMinute('break');
+        app.decrementStartingDurationByOneMinute('break');
         expect(app.startingDurationMinutes['break']).toEqual(1);
 
-        app.decrementDurationByOneMinute('work');
-        app.decrementDurationByOneMinute('work');
-        app.decrementDurationByOneMinute('work');
+        app.decrementStartingDurationByOneMinute('work');
+        app.decrementStartingDurationByOneMinute('work');
+        app.decrementStartingDurationByOneMinute('work');
         expect(app.startingDurationMinutes['work']).toEqual(1);
       }));
-    describe('Function: incrementDurationByOneMinute', () => {
+    describe('Function: incrementStartingDurationByOneMinute', () => {
       it('should increment the duration of the relevant timer duration (work/break) by one minute',
         inject([PomodoroClockAppComponent], (app: PomodoroClockAppComponent) => {
           app.startingDurationMinutes = {
@@ -69,14 +69,14 @@ describe('App: PomodoroClock', () => {
             'work': 25
           }
 
-          app.incrementDurationByOneMinute('break');
+          app.incrementStartingDurationByOneMinute('break');
           expect(app.startingDurationMinutes['break']).toEqual(6);
-          app.incrementDurationByOneMinute('break');
+          app.incrementStartingDurationByOneMinute('break');
           expect(app.startingDurationMinutes['break']).toEqual(7);
 
-          app.incrementDurationByOneMinute('work');
+          app.incrementStartingDurationByOneMinute('work');
           expect(app.startingDurationMinutes['work']).toEqual(26);
-          app.incrementDurationByOneMinute('work');
+          app.incrementStartingDurationByOneMinute('work');
           expect(app.startingDurationMinutes['work']).toEqual(27);
         }));
     });
