@@ -9,19 +9,19 @@ import { Component } from '@angular/core';
 export class PomodoroClockAppComponent {
   title = 'pomodoro-clock works!';
 
-  durationMinutes = {
+  startingDurationMinutes = {
     'break': 5,
     'work': 25
   }
   
   decrementDurationByOneMinute (timerType) {
-    if (this.durationMinutes[timerType] == 1) {
+    if (this.startingDurationMinutes[timerType] == 1) {
       return
     }
-    this.durationMinutes[timerType] -= 1;
+    this.startingDurationMinutes[timerType] -= 1;
   };
 
   incrementDurationByOneMinute (timerType) {
-    this.durationMinutes[timerType] += 1;
+    this.startingDurationMinutes[timerType] += 1;
   };
 }
