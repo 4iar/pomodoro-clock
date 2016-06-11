@@ -25,6 +25,9 @@ export class PomodoroClockAppComponent {
 
   timerStart () {
     this.setStatus(true, 'work', this.startingDurationSeconds['work']);
+    
+    clearInterval(this.intervalTimer);  // prevent multiple timers from being created
+    this.intervalTimer = setInterval(() => this.timerTickOneSecond(), 1000);
   }
 
   timerTogglePause () {
