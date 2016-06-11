@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['pomodoro-clock.component.css']
 })
 export class PomodoroClockAppComponent {
-  title = 'pomodoro-clock works!';
   intervalTimer = { };
   status = { };
   startingDurationSeconds = {
