@@ -1,17 +1,28 @@
 <div class="" id="clock">
-  <div class="flexrow">
-    <div class="item" ><h3>+</h3></div>
-    <div class="item" ><h3>num</h3></div>
-    <div class="item" ><h3>+</h3></div>
+  <div *ngIf="!status.ticking" class="flexrow" id="time-adjustment">
+    <div (click)="incrementStartingDurationByOneMinute('work')" class="item" ><button>+</button></div>
+    <div class="item" ><h3>{{ startingDurationSeconds.work }}</h3></div>
+    <div (click)="decrementStartingDurationByOneMinute('work')" class="item" ><button>-</button></div>
 
     <div class="middle-padding"></div>
 
-    <div class="item" ><h3>+</h3></div>
-    <div class="item" ><h3>num</h3></div>
-    <div class="item" ><h3>+</h3></div>
+    <div (click)="incrementStartingDurationByOneMinute('break')" class="item" ><button>+</button></div>
+    <div class="item" ><h3>{{ startingDurationSeconds.break }}</h3></div>
+    <div (click)="decrementStartingDurationByOneMinute('break')" class="item" ><button>-</button></div>
   </div>
 
-  <div class="flexrow" id="clock">
-    clock
+  <div *ngIf="status.ticking" class="flexrow">
+    <h3>{{ status.currentTimer }}: {{ status.secondsRemaining }}</h3>
   </div>
+
+  <div [ngSwitch]="status.ticking" id="controls" class="flexrow">
+    <div *ngSwitchWhen="true">
+      <button class="control-button" (click)="timerTogglePause()">Pause</button>
+    </div>
+
+    <div *ngSwitchWhen="false">
+      <button class="button-primary control-button" (click)="timerStart()">Start</button>
+    </div>
+  </div>
+
 </div>

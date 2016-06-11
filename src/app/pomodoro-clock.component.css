@@ -1,5 +1,5 @@
 #clock {
-  margin: auto;
+  margin: 15% auto;
 
   width: 80%;
   height: 300px;
@@ -10,12 +10,19 @@
   flex-direction: row;
   justify-content: center;
   align-content: stretch;
+  flex-wrap: nowrap;
 }
 
 .flexcol {
   display: flex;
   flex-direction: column;
 }
+
+.control-button {
+  flex-basis: 100%;
+  flex-grow: 1;
+}
+
 
 .item {
   margin-right: 10px;
@@ -24,7 +31,6 @@
   flex-basis: auto;
 
   flex-shrink: 1;
-  background-color: red;
 
   text-align: center;
 }
@@ -32,12 +38,4 @@
 .middle-padding {
   width: 50px;
   flex-shrink: 1;
-}
-
-
-
-
-.button1 {
-  height: 20px;
-  float: right;
 }
