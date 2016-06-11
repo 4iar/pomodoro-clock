@@ -10,21 +10,21 @@ export class PomodoroClockAppComponent {
   title = 'pomodoro-clock works!';
   intervalTimer = { };
   status = { };
-  startingDurationMinutes = {
-    'break': 5,
-    'work': 25
+  startingDurationSeconds = {
+    'break': 300,
+    'work': 1500
   }
 
-  setStatus (ticking, currentTimer, minutesRemaining) {
+  setStatus (ticking, currentTimer, secondsRemaining) {
     this.status = {
       'ticking': ticking,
       'currentTimer': currentTimer,
-      'minutesRemaining': minutesRemaining
+      "secondsRemaining": secondsRemaining
     };
   }
 
   timerStart () {
-    this.setStatus(true, 'work', this.startingDurationMinutes['work']);
+    this.setStatus(true, 'work', this.startingDurationSeconds['work']);
   }
 
   timerTogglePause () {
@@ -32,20 +32,20 @@ export class PomodoroClockAppComponent {
   }
 
   timerReset () {
-    this.setStatus(false, 'work', this.startingDurationMinutes['work']);
+    this.setStatus(false, 'work', this.startingDurationSeconds['work']);
   }
 
   timerTickOneSecond () {
   };
 
   decrementStartingDurationByOneMinute (timerType) {
-    if (this.startingDurationMinutes[timerType] == 1) {
+    if (this.startingDurationSeconds[timerType] == 60) {
       return
     }
-    this.startingDurationMinutes[timerType] -= 1;
+    this.startingDurationSeconds[timerType] -= 60;
   };
 
   incrementStartingDurationByOneMinute (timerType) {
-    this.startingDurationMinutes[timerType] += 1;
+    this.startingDurationSeconds[timerType] += 60;
   };
 }

@@ -15,38 +15,38 @@ describe('App: PomodoroClock', () => {
       expect(app).toBeTruthy();
     }));
 
-  it('should initialise startingDurationMinutes.break to 5',
+  it('should initialise startingDurationSeconds.break to 300',
     inject([PomodoroClockAppComponent], (app: PomodoroClockAppComponent) => {
-      expect(app.startingDurationMinutes['break']).toEqual(5);
+      expect(app.startingDurationSeconds['break']).toEqual(300);
     }));
 
-  it('should initialise startingDurationMinutes.work to 25',
+  it('should initialise startingDurationSeconds.work to 1500',
     inject([PomodoroClockAppComponent], (app: PomodoroClockAppComponent) => {
-      expect(app.startingDurationMinutes['work']).toEqual(25);
+      expect(app.startingDurationSeconds['work']).toEqual(1500);
     }));
 
   describe('Function: decrementStartingDurationByOneMinute', () => {
     it('should decrement the duration of the relevant timer duration (work/break) by one minute',
       inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
-        app.startingDurationMinutes = {
-          'break': 5,
-          'work': 25
+        app.startingDurationSeconds = {
+          'break': 300,
+          'work': 1500 
         }
         app.decrementStartingDurationByOneMinute('break');
-        expect(app.startingDurationMinutes['break']).toEqual(4);
+        expect(app.startingDurationSeconds['break']).toEqual(240);
         app.decrementStartingDurationByOneMinute('break');
-        expect(app.startingDurationMinutes['break']).toEqual(3);
+        expect(app.startingDurationSeconds['break']).toEqual(180);
 
         app.decrementStartingDurationByOneMinute('work');
-        expect(app.startingDurationMinutes['work']).toEqual(24);
+        expect(app.startingDurationSeconds['work']).toEqual(1440);
         app.decrementStartingDurationByOneMinute('work');
-        expect(app.startingDurationMinutes['work']).toEqual(23);
+        expect(app.startingDurationSeconds['work']).toEqual(1380);
       }));
-    it('should not allow the duration of either timer (break/work) to be less than 0',
+    it('should not allow the duration of either timer (break/work) to be less than one minute',
       inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
-        app.startingDurationMinutes = {
-          'break': 5,
-          'work': 2
+        app.startingDurationSeconds = {
+          'break': 300,
+          'work': 120 
         }
         app.decrementStartingDurationByOneMinute('break');
         app.decrementStartingDurationByOneMinute('break');
@@ -54,52 +54,52 @@ describe('App: PomodoroClock', () => {
         app.decrementStartingDurationByOneMinute('break');
         app.decrementStartingDurationByOneMinute('break');
         app.decrementStartingDurationByOneMinute('break');
-        expect(app.startingDurationMinutes['break']).toEqual(1);
+        expect(app.startingDurationSeconds['break']).toEqual(60);
 
         app.decrementStartingDurationByOneMinute('work');
         app.decrementStartingDurationByOneMinute('work');
         app.decrementStartingDurationByOneMinute('work');
-        expect(app.startingDurationMinutes['work']).toEqual(1);
+        expect(app.startingDurationSeconds['work']).toEqual(60);
       }));
     describe('Function: incrementStartingDurationByOneMinute', () => {
       it('should increment the duration of the relevant timer duration (work/break) by one minute',
         inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
-          app.startingDurationMinutes = {
-            'break': 5,
-            'work': 25
+          app.startingDurationSeconds = {
+            'break': 300,
+            'work': 1500 
           }
 
           app.incrementStartingDurationByOneMinute('break');
-          expect(app.startingDurationMinutes['break']).toEqual(6);
+          expect(app.startingDurationSeconds['break']).toEqual(360);
           app.incrementStartingDurationByOneMinute('break');
-          expect(app.startingDurationMinutes['break']).toEqual(7);
+          expect(app.startingDurationSeconds['break']).toEqual(420);
 
           app.incrementStartingDurationByOneMinute('work');
-          expect(app.startingDurationMinutes['work']).toEqual(26);
+          expect(app.startingDurationSeconds['work']).toEqual(1560);
           app.incrementStartingDurationByOneMinute('work');
-          expect(app.startingDurationMinutes['work']).toEqual(27);
+          expect(app.startingDurationSeconds['work']).toEqual(1620);
         }));
     });
     describe('Function: timerStart', () => {
       it('sets this.status.ticking to true',
         inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
-          app.startingDurationMinutes = {'work': 25, 'break': 5};
+          app.startingDurationSeconds = {'work': 1500, 'break':300};
           app.timerStart();
           expect(app.status['ticking']).toBeTruthy();
         }));
 
       it('sets this.status.currentTimer to "work", because we do not start work with a break',
         inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
-          app.startingDurationMinutes = {'work': 25, 'break': 5};
+          app.startingDurationSeconds = {'work': 1500, 'break':300};
           app.timerStart();
           expect(app.status['currentTimer']).toEqual('work');
         }));
 
-      it('sets this.status.minutesRemaining to the defined starting duration',
+      it('sets this.status.secondsRemaining to the defined starting duration',
         inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
-          app.startingDurationMinutes = {'work': 777, 'break': 5};
+          app.startingDurationSeconds = {'work': 777, 'break':300};
           app.timerStart();
-          expect(app.status['minutesRemaining']).toEqual(777);
+          expect(app.status['secondsRemaining']).toEqual(777);
         }));
 
       it('calls the setInterval function with the correct callback and time interval',
@@ -134,13 +134,13 @@ describe('App: PomodoroClock', () => {
         app.timerReset()
       }));
 
-    it('sets this.status.minutesRemaining to the work starting duration',
+    it('sets this.status.secondsRemaining to the work starting duration',
       inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
         app.timerReset()
       }));
   });
   describe('Function: timerTickOneSecond', () => {
-    it('decreases this.status.minutesRemaining by one second',
+    it('decreases this.status.secondsRemaining by one second',
       inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
         app.timerTickOneSecond()
       }));
