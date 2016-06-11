@@ -36,6 +36,19 @@ export class PomodoroClockAppComponent {
   }
 
   timerTickOneSecond () {
+    if (this.status['secondsRemaining'] === 0) {
+      if (this.status['currentTimer'] === 'break') {
+        // if the break has finished then reset the timer
+        // so the user can start the next pomodoro
+        this.timerReset();
+      } else {
+        // begin counting down the break since work time has ended
+        this.setStatus(true, 'break', this.startingDurationSeconds['break'])
+      }
+      return
+    };
+    
+    this.status['secondsRemaining'] -= 1;
   };
 
   decrementStartingDurationByOneMinute (timerType) {

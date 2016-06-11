@@ -142,17 +142,26 @@ describe('App: PomodoroClock', () => {
   describe('Function: timerTickOneSecond', () => {
     it('decreases this.status.secondsRemaining by one second',
       inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
-        app.timerTickOneSecond()
+        app.status = {'secondsRemaining': 600};
+        app.timerTickOneSecond();
+        expect(app.status['secondsRemaining']).toEqual(599);
+        app.timerTickOneSecond();
+        expect(app.status['secondsRemaining']).toEqual(598);
       }));
 
     it('switches the current timer to "break" once the work timer has reached 0',
       inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
-        app.timerTickOneSecond()
+        app.status = {'currentTimer': 'work', 'secondsRemaining': 0};
+        app.timerTickOneSecond();
+        expect(app.status['currentTimer']).toEqual('break');
       }));
 
     it('resets the timer when the break timer has ended',
       inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
-        app.timerTickOneSecond()
+        app.startingDurationSeconds = {'work': 1500, 'break': 300};
+        app.status = {'ticking': true, 'currentTimer': 'break', 'secondsRemaining': 0};
+        app.timerTickOneSecond();
+        expect(app.status) .toEqual({'ticking': false, 'currentTimer': 'work', 'secondsRemaining': 1500});
       }));
   });
 });
