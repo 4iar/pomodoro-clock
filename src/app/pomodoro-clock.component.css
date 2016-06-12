@@ -28,5 +28,6 @@
 }
 
 #controls .control-button {
-  width: 400px;
+  width: 125px;
+  margin: 0px 5px 0px 5px;
 }
