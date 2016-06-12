@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { FormatTime } from './format-time.pipe';
 
 @Component({
   moduleId: module.id,
   selector: 'pomodoro-clock-app',
   templateUrl: 'pomodoro-clock.component.html',
-  styleUrls: ['pomodoro-clock.component.css']
+  styleUrls: ['pomodoro-clock.component.css'],
+  pipes: [FormatTime]
 })
 export class PomodoroClockAppComponent {
   intervalTimer = 0;
