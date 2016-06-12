@@ -30,7 +30,7 @@ export class PomodoroClockAppComponent {
     if (!this.status['ticking']) {
       this.setStatus(true, 'work', this.startingDurationSeconds['work']);
     }
-    
+
     this.status['paused'] = false;
     this.intervalTimer = setInterval(() => this.timerTickOneSecond(), 1000);
   }
@@ -38,7 +38,7 @@ export class PomodoroClockAppComponent {
   timerPause () {
     this.status['paused'] = true;
   }
-  
+
   timerReset () {
     clearInterval(this.intervalTimer);
     this.setStatus(false, 'work', this.startingDurationSeconds['work']);
@@ -48,7 +48,7 @@ export class PomodoroClockAppComponent {
     if (this.status['paused']) {
       return;
     }
-    
+
     if (this.status['secondsRemaining'] === 0) {
       if (this.status['currentTimer'] === 'break') {
         // if the break has finished then reset the timer
