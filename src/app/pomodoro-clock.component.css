@@ -1,41 +1,32 @@
 #clock {
-  margin: 15% auto;
-
-  width: 80%;
-  height: 300px;
+  margin-top: 10%;
+  flex: 0 0 500px;
 }
 
-.flexrow {
+#time-adjustment {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   justify-content: center;
-  align-content: stretch;
-  flex-wrap: nowrap;
 }
-
-.flexcol {
+#time-left {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+}
+#time-adjustment .middle-padding {
+  width: 100px;
 }
 
-.control-button {
-  flex-basis: 100%;
-  flex-grow: 1;
+#time-adjustment .duration {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
-
-.item {
-  margin-right: 10px;
-  margin-left: 10px;
-
-  flex-basis: auto;
-
-  flex-shrink: 1;
-
-  text-align: center;
+#controls {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
 }
 
-.middle-padding {
-  width: 50px;
-  flex-shrink: 1;
+#controls .control-button {
+  width: 400px;
 }
