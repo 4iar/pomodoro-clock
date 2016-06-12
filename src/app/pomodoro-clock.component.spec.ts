@@ -81,7 +81,7 @@ describe('App: PomodoroClock', () => {
         }));
     });
     describe('Function: timerStart', () => {
-      it('sets this.status.ticking to true',
+      it('if the timer has not been started, start it by setting this.status.ticking',
         inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
           app.startingDurationSeconds = {'work': 1500, 'break':300};
           app.timerStart();
@@ -95,9 +95,14 @@ describe('App: PomodoroClock', () => {
           expect(app.status['currentTimer']).toEqual('work');
         }));
 
-      it('sets this.status.secondsRemaining to the defined starting duration',
+      it('sets this.status.secondsRemaining to the defined starting duration if the timer has not been started',
         inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
           app.startingDurationSeconds = {'work': 777, 'break':300};
+          app.timerStart();
+          expect(app.status['secondsRemaining']).toEqual(777);
+
+          app.startingDurationSeconds = {'work': 777, 'break':300};
+          app.status = {'ticking': false, 'currentTimer': 'work', 'secondsRemaining': 1500, 'paused': false};
           app.timerStart();
           expect(app.status['secondsRemaining']).toEqual(777);
         }));
@@ -108,19 +113,12 @@ describe('App: PomodoroClock', () => {
         }));
     });
   });
-  describe('Function: timerTogglePause', () => {
-    it('toggles this.status.ticking',
+  describe('Function: timerPause', () => {
+    it('it sets status.paused',
       inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
-        app.status = {'ticking': true};
-        app.timerTogglePause();
-        expect(app.status['ticking']).toBeFalsy();
-        app.timerTogglePause();
-        expect(app.status['ticking']).toBeTruthy();
-      }));
-
-    it('calls setInterval with the remaining time',
-      inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
-        app.timerTogglePause();
+        app.status = {'ticking': false, 'currentTimer': 'work', 'secondsRemaining': 1500, 'paused': false};
+        app.timerPause();
+        expect(app.status['paused']).toBeTruthy();
       }));
   });
   describe('Function: timerReset', () => {
@@ -142,16 +140,16 @@ describe('App: PomodoroClock', () => {
   describe('Function: timerTickOneSecond', () => {
     it('decreases this.status.secondsRemaining by one second',
       inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
-        app.status = {'secondsRemaining': 600};
+        app.status = {'ticking': false, 'currentTimer': 'work', 'secondsRemaining': 1500, 'paused': false};
         app.timerTickOneSecond();
-        expect(app.status['secondsRemaining']).toEqual(599);
+        expect(app.status['secondsRemaining']).toEqual(1499);
         app.timerTickOneSecond();
-        expect(app.status['secondsRemaining']).toEqual(598);
+        expect(app.status['secondsRemaining']).toEqual(1498);
       }));
 
     it('switches the current timer to "break" once the work timer has reached 0',
       inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
-        app.status = {'currentTimer': 'work', 'secondsRemaining': 0};
+        app.status = {'ticking': false, 'currentTimer': 'work', 'secondsRemaining': 0, 'paused': false};
         app.timerTickOneSecond();
         expect(app.status['currentTimer']).toEqual('break');
       }));
@@ -159,9 +157,9 @@ describe('App: PomodoroClock', () => {
     it('resets the timer when the break timer has ended',
       inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
         app.startingDurationSeconds = {'work': 1500, 'break': 300};
-        app.status = {'ticking': true, 'currentTimer': 'break', 'secondsRemaining': 0};
+        app.status = {'ticking': true, 'currentTimer': 'break', 'secondsRemaining': 0, 'paused': false};
         app.timerTickOneSecond();
-        expect(app.status) .toEqual({'ticking': false, 'currentTimer': 'work', 'secondsRemaining': 1500});
+        expect(app.status) .toEqual({'ticking': false, 'currentTimer': 'work', 'secondsRemaining': 1500, 'paused': false});
       }));
   });
 });

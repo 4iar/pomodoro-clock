@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['pomodoro-clock.component.css']
 })
 export class PomodoroClockAppComponent {
-  intervalTimer = { };
-  status = { };
+  intervalTimer = 0;
+  status = {'ticking': false, 'currentTimer': 'work', 'secondsRemaining': 1500, 'paused': false};
   startingDurationSeconds = {
     'break': 300,
     'work': 1500
@@ -18,26 +18,35 @@ export class PomodoroClockAppComponent {
     this.status = {
       'ticking': ticking,
       'currentTimer': currentTimer,
-      "secondsRemaining": secondsRemaining
+      "secondsRemaining": secondsRemaining,
+      'paused': false
     };
   }
 
   timerStart () {
-    this.setStatus(true, 'work', this.startingDurationSeconds['work']);
-    
     clearInterval(this.intervalTimer);  // prevent multiple timers from being created
+    if (!this.status['ticking']) {
+      this.setStatus(true, 'work', this.startingDurationSeconds['work']);
+    }
+    
+    this.status['paused'] = false;
     this.intervalTimer = setInterval(() => this.timerTickOneSecond(), 1000);
   }
 
-  timerTogglePause () {
-    this.status['ticking'] =  !this.status['ticking'];
+  timerPause () {
+    this.status['paused'] = true;
   }
-
+  
   timerReset () {
+    clearInterval(this.intervalTimer);
     this.setStatus(false, 'work', this.startingDurationSeconds['work']);
   }
 
   timerTickOneSecond () {
+    if (this.status['paused']) {
+      return;
+    }
+    
     if (this.status['secondsRemaining'] === 0) {
       if (this.status['currentTimer'] === 'break') {
         // if the break has finished then reset the timer
@@ -49,7 +58,7 @@ export class PomodoroClockAppComponent {
       }
       return
     };
-    
+
     this.status['secondsRemaining'] -= 1;
   };
 
