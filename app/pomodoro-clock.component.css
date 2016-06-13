@@ -8,10 +8,12 @@
   flex-flow: row wrap;
   justify-content: center;
 }
+
 #time-left {
   display: flex;
   justify-content: center;
 }
+
 #time-adjustment .middle-padding {
   width: 100px;
 }
