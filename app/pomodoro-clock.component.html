@@ -1,0 +1,26 @@
+<div class="" id="clock">
+
+  <div *ngIf="!status.ticking" id="time-adjustment">
+    <div (click)="incrementStartingDurationByOneMinute('work')"><button>+</button></div>
+    <div class="duration" ><h3>{{ startingDurationSeconds.work | formatTime }}</h3></div>
+    <div (click)="decrementStartingDurationByOneMinute('work')"><button>-</button></div>
+
+    <div class="middle-padding"></div>
+
+    <div (click)="incrementStartingDurationByOneMinute('break')"><button>+</button></div>
+    <div class="duration" ><h3>{{ startingDurationSeconds.break | formatTime }}</h3></div>
+    <div (click)="decrementStartingDurationByOneMinute('break')"><button>-</button></div>
+  </div>
+
+  <div *ngIf="status.ticking" id="time-left">
+    <h3>{{ status.currentTimer }}: {{ status.secondsRemaining | formatTime }}</h3>
+  </div>
+
+  <div id="controls">
+    <button class="button-primary control-button" (click)="timerStart()">Start</button>
+    <button class="control-button" (click)="timerPause()">Pause</button>
+    <button class="control-button" (click)="timerReset()">Reset</button>
+  </div>
+
+
+</div>

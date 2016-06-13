@@ -1,0 +1,33 @@
+#clock {
+  margin-top: 10%;
+  flex: 0 0 500px;
+}
+
+#time-adjustment {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+#time-left {
+  display: flex;
+  justify-content: center;
+}
+#time-adjustment .middle-padding {
+  width: 100px;
+}
+
+#time-adjustment .duration {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#controls {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+}
+
+#controls .control-button {
+  width: 125px;
+  margin: 0px 5px 0px 5px;
+}
