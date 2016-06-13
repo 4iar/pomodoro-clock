@@ -30,7 +30,7 @@ describe('App: PomodoroClock', () => {
       inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
         app.startingDurationSeconds = {
           'break': 300,
-          'work': 1500 
+          'work': 1500
         }
         app.decrementStartingDurationByOneMinute('break');
         expect(app.startingDurationSeconds['break']).toEqual(240);
@@ -46,7 +46,7 @@ describe('App: PomodoroClock', () => {
       inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
         app.startingDurationSeconds = {
           'break': 300,
-          'work': 120 
+          'work': 120
         }
         app.decrementStartingDurationByOneMinute('break');
         app.decrementStartingDurationByOneMinute('break');
@@ -66,7 +66,7 @@ describe('App: PomodoroClock', () => {
         inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
           app.startingDurationSeconds = {
             'break': 300,
-            'work': 1500 
+            'work': 1500
           }
 
           app.incrementStartingDurationByOneMinute('break');
@@ -187,4 +187,3 @@ describe('App: PomodoroClock', () => {
       }));
   });
 });
-

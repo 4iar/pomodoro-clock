@@ -8,7 +8,9 @@ import { FormatTime } from './format-time.pipe';
   styleUrls: ['pomodoro-clock.component.css'],
   pipes: [FormatTime]
 })
+
 export class PomodoroClockAppComponent {
+
   intervalTimer = 0;
   status = {'ticking': false, 'currentTimer': 'work', 'secondsRemaining': 1500, 'paused': false};
   startingDurationSeconds = {
@@ -58,11 +60,11 @@ export class PomodoroClockAppComponent {
         // begin counting down the break since work time has ended
         this.setStatus(true, 'break', this.startingDurationSeconds['break'])
       }
-      
-      this.timerEndNotification() 
+
+      this.timerEndNotification()
       return
     };
-    
+
     this.status['secondsRemaining'] -= 1;
   };
 
