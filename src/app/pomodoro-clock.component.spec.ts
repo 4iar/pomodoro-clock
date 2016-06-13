@@ -137,7 +137,7 @@ describe('App: PomodoroClock', () => {
         app.timerReset()
       }));
   });
-  describe('Function: timerTickOneSecond', () => {
+  xdescribe('Function: timerTickOneSecond', () => {
     it('decreases this.status.secondsRemaining by one second',
       inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
         app.status = {'ticking': false, 'currentTimer': 'work', 'secondsRemaining': 1500, 'paused': false};
@@ -160,6 +160,30 @@ describe('App: PomodoroClock', () => {
         app.status = {'ticking': true, 'currentTimer': 'break', 'secondsRemaining': 0, 'paused': false};
         app.timerTickOneSecond();
         expect(app.status) .toEqual({'ticking': false, 'currentTimer': 'work', 'secondsRemaining': 1500, 'paused': false});
+      }));
+
+    it('calls timerEndNotification when either the work timer ends',
+      inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
+        app.status = {'ticking': true, 'currentTimer': 'work', 'secondsRemaining': 0, 'paused': false};
+        app.timerTickOneSecond();
+        spyOn(app, 'timerEndNotification');
+        expect(app.timerEndNotification).toHaveBeenCalled();
+      }));
+
+    it('calls timerEndNotification when either the work timer ends',
+      inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
+        app.status = {'ticking': true, 'currentTimer': 'break', 'secondsRemaining': 0, 'paused': false};
+        app.timerTickOneSecond();
+        spyOn(app, 'timerEndNotification');
+        expect(app.timerEndNotification).toHaveBeenCalled();
+      }));
+  });
+
+  xdescribe('Function: timerEndNotification', () => {
+    it('calls audio.play()',
+      inject([PomodoroClockAppComponent], (app:PomodoroClockAppComponent) => {
+        // TODO: write the spy
+        expect(true).toBeTruthy();
       }));
   });
 });

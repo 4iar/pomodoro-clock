@@ -58,11 +58,19 @@ export class PomodoroClockAppComponent {
         // begin counting down the break since work time has ended
         this.setStatus(true, 'break', this.startingDurationSeconds['break'])
       }
+      
+      this.timerEndNotification() 
       return
     };
-
+    
     this.status['secondsRemaining'] -= 1;
   };
+
+  timerEndNotification () {
+    // TODO: add other notifications/options e.g. through chrome notification service
+    var audio = new Audio('./alarm.mp3');
+    audio.play();
+  }
 
   decrementStartingDurationByOneMinute (timerType) {
     if (this.startingDurationSeconds[timerType] == 60) {
